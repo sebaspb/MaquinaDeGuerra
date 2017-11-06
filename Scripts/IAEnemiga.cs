@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class IAEnemiga : MonoBehaviour {
 
+	[Header("<OPCIONES DE ENEMIGOS>")]
+	[Tooltip("Arreglo que almacena la lista de enemigos")]
+	public GameObject[] Enemigos;
+	[Tooltip("Segundos que transcurren entre cada spawn")]
+	public float TiempoDeSpawn = 3f;
+	[Tooltip("Arreglo que contiene los distintos puntos de spawn")]
+	public Transform[] PuntosDeSpawn;
 
-    public GameObject[] Enemigos;
-    public float TiempoDeSpawn = 3f;
-    public Transform[] PuntoDeSpawn;
-    public float puntuacion = 50f;
 
-    
+	// Use this for initialization
+	void Start () {
 
-    // Use this for initialization
-    void Start () {
-
-        InvokeRepeating("Spawn", TiempoDeSpawn, TiempoDeSpawn);
+		InvokeRepeating ("Spawn", TiempoDeSpawn, TiempoDeSpawn);
 
 	}
 	
@@ -24,43 +25,43 @@ public class IAEnemiga : MonoBehaviour {
 		
 	}
 
-    void Spawn()
-    {
-
-        if (puntuacion < 50)
-        {
-         
-            int spawnPointIndex = Random.Range(0, PuntoDeSpawn.Length);
-
-        Instantiate(Enemigos[0], PuntoDeSpawn[spawnPointIndex].position, PuntoDeSpawn[spawnPointIndex].rotation);
-           
-
-         
-        }
-
-        if (puntuacion < 100 && puntuacion > 50)
+	void Spawn()
+	{
+        if (Jugador.puntuacionstatic >= 0 && Jugador.puntuacionstatic < 250)
         {
 
-            int spawnPointIndex = Random.Range(0, PuntoDeSpawn.Length);
+            int NumeroPuntoSpawn = Random.Range(0, 1);
+            Instantiate(Enemigos[0], PuntosDeSpawn[NumeroPuntoSpawn].position, PuntosDeSpawn[NumeroPuntoSpawn].rotation);
 
-            Instantiate(Enemigos[Random.Range(0, 2)], PuntoDeSpawn[spawnPointIndex].position, PuntoDeSpawn[spawnPointIndex].rotation);
 
         }
 
-
-        if (puntuacion > 100)
+        if (Jugador.puntuacionstatic >=250  && Jugador.puntuacionstatic < 350)
         {
 
-            int spawnPointIndex = Random.Range(0, PuntoDeSpawn.Length);
+            int NumeroPuntoSpawn = Random.Range(0, 2);
+            Instantiate(Enemigos[Random.Range(0, 2)], PuntosDeSpawn[NumeroPuntoSpawn].position, PuntosDeSpawn[NumeroPuntoSpawn].rotation);
 
-            Instantiate(Enemigos[Random.Range(0, 3)], PuntoDeSpawn[spawnPointIndex].position, PuntoDeSpawn[spawnPointIndex].rotation);
 
         }
 
+        if (Jugador.puntuacionstatic >= 350 && Jugador.puntuacionstatic < 500)
+        {
+
+            int NumeroPuntoSpawn = Random.Range(0, 2);
+            Instantiate(Enemigos[Random.Range(0, 3)], PuntosDeSpawn[NumeroPuntoSpawn].position, PuntosDeSpawn[NumeroPuntoSpawn].rotation);
+
+
+        }
+
+        if (Jugador.puntuacionstatic >= 500 && Jugador.puntuacionstatic < 750)
+        {
+
+            int NumeroPuntoSpawn = Random.Range(2, 4);
+            Instantiate(Enemigos[Random.Range(0, 4)], PuntosDeSpawn[NumeroPuntoSpawn].position, PuntosDeSpawn[NumeroPuntoSpawn].rotation);
+
+
+        }
 
     }
-
-
-
-}
-
+    }
